@@ -8,10 +8,17 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Reflection;
-using System.Web.Http;
+using BibleLibrary.Classes;
 
 namespace BibleLibrary
 {
+    //public static async Task<HttpResponseMessage> PostAsJsonAsync<TModel>(this HttpClient client, string requestUrl, TModel model)
+    //{
+    //    var serializer = new JavaScriptSerializer();
+    //    var json = serializer.Serialize(model);
+    //    var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+    //    return await client.PostAsync(requestUrl, stringContent);
+
     public class User
     {
         #region Members
@@ -41,7 +48,9 @@ namespace BibleLibrary
         //HTTP method: POST
         public static async Task<Object> CreateUserAsync(User user)
         {
-            HttpResponseMessage response = await m_client.PostAsJsonAsync("api/auth/signup", user);
+            string json = JsonConvert.SerializeObject(user);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await m_client.PostAsync("api/auth/signup", content).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();
             JObject token = JObject.Parse(data);
@@ -56,7 +65,7 @@ namespace BibleLibrary
         //HTTP method: POST
         public static async Task<Object> LoginUserAsync(User user)
         {
-            HttpResponseMessage response = await m_client.PostAsJsonAsync("api/auth/login", user);
+            HttpResponseMessage response = await m_client.PostAsJsonAsync("api/auth/login", user).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();
             JObject token = JObject.Parse(data);
