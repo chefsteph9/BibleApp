@@ -48,9 +48,7 @@ namespace BibleLibrary
         //HTTP method: POST
         public static async Task<Object> CreateUserAsync(User user)
         {
-            string json = JsonConvert.SerializeObject(user);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await m_client.PostAsync("api/auth/signup", content).ConfigureAwait(false);
+            HttpResponseMessage response = await m_client.PostAsJsonAsync("api/auth/signup", user).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();
             JObject token = JObject.Parse(data);

@@ -40,9 +40,9 @@ namespace BibleLibrary
         //HTTP method: POST
         public static async Task<Object> CreateTopicAsync(Topic topic)
         {
-            HttpResponseMessage response = await m_client.PostAsJsonAsync("api/topics", topic);
+            HttpResponseMessage response = await m_client.PostAsJsonAsync("api/topics", topic).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
-            var data = await response.Content.ReadAsStringAsync();
+            var data = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
 
             // return Success/Error message
@@ -53,9 +53,9 @@ namespace BibleLibrary
         //HTTP method: GET
         public static async Task<String> ListTopicsAsync()
         {
-            HttpResponseMessage response = await m_client.GetAsync("api/topics");
+            HttpResponseMessage response = await m_client.GetAsync("api/topics").ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
-            var data = await response.Content.ReadAsStringAsync();
+            var data = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
 
             // return Success/Error message
@@ -66,9 +66,9 @@ namespace BibleLibrary
         //HTTP method: GET
         public static async Task<Object> GetTopicAsync(int id)
         {
-            HttpResponseMessage response = await m_client.GetAsync("api/topics/" + id);
+            HttpResponseMessage response = await m_client.GetAsync("api/topics/" + id).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
-            var data = await response.Content.ReadAsStringAsync();
+            var data = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
 
             // return Success/Error message
@@ -79,9 +79,9 @@ namespace BibleLibrary
         //HTTP method: PUT
         public static async Task<Object> UpdateTopicAsync(int id, Topic topic)
         {
-            HttpResponseMessage response = await m_client.PutAsJsonAsync("api/topics/" + id, topic);
+            HttpResponseMessage response = await m_client.PutAsJsonAsync("api/topics/" + id, topic).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
-            var data = await response.Content.ReadAsStringAsync();
+            var data = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
 
             // return Success/Error message
@@ -92,9 +92,9 @@ namespace BibleLibrary
         //HTTP method: DELETE
         public static async Task<Object> DeleteTopicAsync(int id)
         {
-            HttpResponseMessage response = await m_client.DeleteAsync("api/topics/" + id);
+            HttpResponseMessage response = await m_client.DeleteAsync("api/topics/" + id).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
-            var data = await response.Content.ReadAsStringAsync();
+            var data = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
 
             // return Success/Error message
