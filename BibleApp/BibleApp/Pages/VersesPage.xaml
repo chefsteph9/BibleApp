@@ -14,7 +14,7 @@
                   ItemSelected="OnListViewItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding verseText}" 
+                    <TextCell Text="{Binding verse}" 
                               Detail="{Binding ID, StringFormat='ID: {0}'}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -75,11 +75,6 @@ namespace BibleApp
 
         #region Private Methods
 
-        private async Task GetDataFromServer()
-        {
-            Topics = await GetAllTopics().ConfigureAwait(false);
-        }
-
         private async Task InitializeClientAndUser()
         {
             try
@@ -236,7 +231,7 @@ namespace BibleApp
 
         public async Task UpdateVerses(Belief belief)
         {
-            Verses = await GetAllVerses(belief);
+            Verses = await GetAllVerses(belief).ConfigureAwait(false);
         }
 
         #endregion
