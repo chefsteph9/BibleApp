@@ -10,7 +10,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>BibleApp.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>BibleAppiOS</AssemblyName>
+    <AssemblyName>BibleApp.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
