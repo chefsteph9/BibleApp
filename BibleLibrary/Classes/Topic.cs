@@ -17,7 +17,15 @@ namespace BibleLibrary
         #region Members
 
         public string topicText { get; set; }
+        public int userID { get; set; }
+        public int ID { get; set; }
         private static HttpClient m_client;
+
+        public HttpClient Client
+        {
+            set { m_client = value; }
+            get { return m_client; }
+        }
 
         #endregion
 

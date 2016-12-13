@@ -17,6 +17,11 @@ namespace BibleLibrary
     {
         #region Members
 
+        public int userID { set; get; }
+        public int topicID { get; set; }
+        public int beliefID { set; get; }
+        public int ID { set; get; }
+
         public string verse { get; set; }
         public int book { get; set; }
         public int chapter { get; set; }
@@ -31,6 +36,12 @@ namespace BibleLibrary
         public Verse(HttpClient client)
         {
             m_client = client;
+        }
+
+        public Verse(Belief belief)
+        {
+            m_client = belief.Client;
+            topicID = belief.topicID;
         }
 
         #endregion

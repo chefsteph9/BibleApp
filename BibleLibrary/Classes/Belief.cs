@@ -17,8 +17,17 @@ namespace BibleLibrary
         #region Members
 
         public string beliefText { get; set; }
+        public int userID { get; set; }
+        public int topicID { get; set; }
+        public int ID { get; set; }
+
         private static HttpClient m_client;
 
+        public HttpClient Client
+        {
+            set { m_client = value; }
+            get { return m_client; }
+        }
         #endregion
 
         #region Constructors
@@ -26,6 +35,12 @@ namespace BibleLibrary
         public Belief(HttpClient client)
         {
             m_client = client;
+        }
+
+        public Belief(Topic topic)
+        {
+            m_client = topic.Client;
+            topicID = topic.ID;
         }
 
         #endregion

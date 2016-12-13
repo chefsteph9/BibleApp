@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,33 +8,59 @@ using System.ComponentModel;
 using BibleLibrary;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Newtonsoft.Json.Linq;
+
 
 namespace BibleApp
 {
-    class BibleAppViewModel : INotifyPropertyChanged
+    public class AppViewModel : ViewModelBase
     {
         #region Members
+        private TopicViewModel m_topicViewModel;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private string m_userName;
-        private string m_userPassword;
-        private string m_userEmail;
-        private string m_userToken;
-        private static HttpClient m_client;
-        private User m_user;
-        private List<string> m_errorMessages;
+        private ObservableCollection<string> m_errorMessages;
+
         private IDictionary<string, object> m_properties;
+        private User m_user;
+        private HttpClient m_client;
 
-
+        private int m_selectedTopic;
+               
         #endregion
 
         #region Constructors
 
-        public BibleAppViewModel(IDictionary<string, object> properties)
+        public AppViewModel()
         {
-            m_properties = properties;
+            m_errorMessages = new ObservableCollection<string>();
+            m_properties = App.Current.Properties;
+
+            m_selectedTopic = 0;
+
             InitializeClientAndUser().Wait();
 
+        }
+
+        #endregion
+
+        #region Properties
+
+        public ObservableCollection<string> ErrorMessages
+        {
+            set { SetProperty(ref m_errorMessages, value); }
+            get { return m_errorMessages; }
+        }
+
+        public User User
+        {
+            set { SetProperty(ref m_user, value); }
+            get { return m_user; }
+        }
+
+        public HttpClient Client
+        {
+            set { SetProperty(ref m_client, value); }
+            get { return m_client; }
         }
 
         #endregion
@@ -84,7 +111,6 @@ namespace BibleApp
 
                 //Set the token in the HTTP header to allow the user to access other parts of the API
                 m_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", m_user.token);
-
             }
 
             catch (Exception e)
@@ -93,26 +119,8 @@ namespace BibleApp
             }
         }
 
+
         #endregion
-
-        public string UserName
-        {
-            set
-            {
-                if (m_userName != value)
-                {
-                    m_userName = value;
-
-                    // Fire event
-                    PropertyChangedEventHandler handler = PropertyChanged;
-
-                    if (handler != null)
-                    {
-                        handler(this, new PropertyChangedEventArgs("userName"));
-                    }
-                }
-            }
-        }
 
         #endregion
     }
